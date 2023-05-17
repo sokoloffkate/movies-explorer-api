@@ -11,7 +11,7 @@ const { createUser, login, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-//const NotFound = require('./errors/NotFound');
+const NotFound = require('./errors/NotFound');
 
 const { PORT = 3000 } = process.env;
 
@@ -45,7 +45,7 @@ app.post('/signout', logout);
 app.use('/users', auth, require('./routes/users'));
 app.use('/movies', auth, require('./routes/movies'));
 
-//app.use('/', (req, res, next) => next(new NotFound('Неверный url запрос')));
+app.use('/', (req, res, next) => next(new NotFound('Неверный url запрос')));
 
 app.use(errorLogger);
 
