@@ -10,7 +10,6 @@ const errorHandler = require('./middlewares/errorHandler');
 const { createUser, login, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
 const NotFound = require('./errors/NotFound');
 
 const { PORT = 3000 } = process.env;

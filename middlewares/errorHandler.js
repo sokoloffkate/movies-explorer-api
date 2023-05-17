@@ -1,5 +1,5 @@
-module.exports = ((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
+module.exports = ((error, req, res, next) => {
+  const { statusCode = 500, message } = error;
   res
     .status(statusCode)
     .send({

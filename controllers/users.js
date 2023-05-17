@@ -45,7 +45,6 @@ module.exports.updateUser = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const { name, email, password } = req.body;
-
   User.find({ email })
     .then((user) => {
       if (user.length > 0) {
