@@ -5,5 +5,4 @@ class UnauthorisedError extends Error {
     this.status = 401;
   }
 }
-
 module.exports = UnauthorisedError;
