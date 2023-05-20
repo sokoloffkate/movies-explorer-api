@@ -10,15 +10,21 @@ const errorHandler = require('./middlewares/errorHandler');
 const { createUser, login, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 const NotFound = require('./errors/NotFound');
 
-const { PORT = 3000 } = process.env;
+const { MONGO_DB_DEV } = require('./utils/constants');
+
+console.log(MONGO_DB_DEV);
+
+const { PORT = 3000, NODE_ENV, MONGO_DB_PROD } = process.env;
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? MONGO_DB_PROD : MONGO_DB_DEV, {
   useNewUrlParser: true,
 });
+console.log(NODE_ENV);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -33,18 +39,18 @@ app.post('/signin', celebrate({
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 }), createUser);
 
-app.post('/signout', logout);
+app.post('/signout', auth, logout);
 
 app.use('/users', auth, require('./routes/users'));
 app.use('/movies', auth, require('./routes/movies'));
 
-app.use('/', (req, res, next) => next(new NotFound('Неверный url запрос')));
+app.use('/', auth, (req, res, next) => next(new NotFound('Неверный url запрос')));
 
 app.use(errorLogger);
 
