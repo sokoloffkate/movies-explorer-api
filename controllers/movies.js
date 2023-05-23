@@ -3,7 +3,7 @@ const NotFound = require('../errors/NotFound');
 const Forbidden = require('../errors/Forbidden');
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .populate('owner')
     .then((movies) => res.status(200).send({ data: movies }))
     .catch((err) => next(err));
@@ -12,7 +12,7 @@ module.exports.getMovies = (req, res, next) => {
 module.exports.createMovie = (req, res, next) => {
   const {
     country, director, duration, year,
-    description, image, trailerLink, nameRU, nameEN, thumbnail, movieId
+    description, image, trailerLink, nameRU, nameEN, thumbnail, movieId,
   } = req.body;
   const ownerId = req.user._id;
   Movie.create({
@@ -40,10 +40,13 @@ module.exports.deleteMovie = (req, res, next) => {
     .then((movie) => {
       if (String(movie.owner._id) === ownerId) {
         movie.deleteOne()
-          .then(() => res.status(200).send({ message: `'Фильм с id = ${req.params.id} успешно удален'` }));
+          .then(() => res.status(200).send({ message: `'Фильм с id = ${req.params.id} успешно удален'` }))
+          .catch((err) => next(err));
       } else {
         throw (new Forbidden('Фильм принаджежит другому пользователю. Удаление невозможно'));
       }
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      next(err);
+    });
 };
