@@ -14,7 +14,7 @@ const router = require('./routes/index');
 
 const { MONGO_DB_DEV } = require('./utils/constants');
 
-const { PORT = 3005, NODE_ENV, MONGO_DB_PROD } = process.env;
+const { NODE_ENV, MONGO_DB_PROD } = process.env;
 
 const app = express();
 
