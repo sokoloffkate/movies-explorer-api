@@ -27,6 +27,7 @@ app.use(cors({
     'https://movie.sokolova.nomoredomains.monster',
     'http://movie.sokolova.nomoredomains.monster',
     'http://localhost:3005',
+    'http://localhost:3000',
   ],
 }));
 
