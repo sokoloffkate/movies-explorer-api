@@ -16,7 +16,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : JWT_SECRET_DEV, { expiresIn: '7d' });
       res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 * 24 * 7 });
-      res.cookie('checkJWT', token, { maxAge: 3600000 * 24 * 7 });
+      res.cookie('jwtCheck', token, { maxAge: 3600000 * 24 * 7 });
       res.send({ message: 'Вы успешло авторизировались' });
     })
     .catch((err) => next(err));
