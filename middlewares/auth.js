@@ -10,9 +10,12 @@ module.exports = (req, res, next) => {
   if (!token) {
     return next(new Unauthorised('Необходима авторизация'));
   }
+
+  let payload;
+
   try {
-    const data = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : JWT_SECRET_DEV);
-    req.user = data;
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : JWT_SECRET_DEV);
+    req.user = payload;
   } catch (err) {
     return next(new Unauthorised('Необходима авторизация'));
   }
