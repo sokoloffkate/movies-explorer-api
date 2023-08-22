@@ -29,6 +29,7 @@ app.use(cors({
     'http://localhost:3005',
     'http://localhost:3000',
   ],
+  credentials: true,
 }));
 
 app.use(helmet());
