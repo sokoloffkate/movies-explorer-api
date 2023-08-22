@@ -1,4 +1,4 @@
-const allowedCors = [
+/* const allowedCors = [
   'https://movie.sokolova.nomoredomains.monster',
   'http://movie.sokolova.nomoredomains.monster',
   'localhost:3005',
@@ -25,4 +25,4 @@ module.exports = (req, res, next) => {
   }
 
   return next();
-};
+}; */
