@@ -34,7 +34,7 @@ module.exports.logout = (req, res, next) => {
 module.exports.geCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFound(`Пользователь с указанным id = ${req.params.id} не найден`))
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.status(200).send(user))
     .catch((err) => next(err));
 };
 
