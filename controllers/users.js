@@ -23,7 +23,9 @@ module.exports.login = (req, res, next) => {
 
 module.exports.logout = (req, res, next) => {
   try {
-    return res.clearCookie('jwt').send({ message: 'Вы успешло вышли' });
+    return res.clearCookie('jwt', {
+      httpOnly: true, sameSite: 'None', secure: true })
+      .send({ message: 'Вы успешло вышли' });
   } catch (err) {
     return next(err);
   }
