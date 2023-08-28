@@ -29,7 +29,7 @@ module.exports.createMovie = (req, res, next) => {
     movieId,
     owner: ownerId,
   })
-    .then((moovie) => res.status(201).send({ data: moovie }))
+    .then((movie) => res.status(201).send(movie))
     .catch((err) => next(err));
 };
 
