@@ -110,6 +110,6 @@ module.exports.createMovieValid = celebrate({
 
 module.exports.deleteMovieValid = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required().hex(),
+    id: Joi.string().required().length(24).hex(),
   }),
 });
