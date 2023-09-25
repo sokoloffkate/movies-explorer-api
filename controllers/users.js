@@ -66,8 +66,8 @@ module.exports.updateUser = (req, res, next) => {
       if (err.code === 11000) {
         next(
           new Conflict(
-            `Пользователь с таким email ${email} уже зарегистрирован`
-          )
+            `Пользователь с таким email ${email} уже зарегистрирован`,
+          ),
         );
       }
       next(err);

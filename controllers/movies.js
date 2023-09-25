@@ -5,7 +5,7 @@ const Forbidden = require('../errors/Forbidden');
 module.exports.getMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
     .populate('owner')
-    .then((movies) => res.status(200).send({ data: movies }))
+    .then((movies) => res.status(200).send(movies))
     .catch((err) => next(err));
 };
 
